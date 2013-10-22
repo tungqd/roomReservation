@@ -1,0 +1,18 @@
+100	Jason Wright	CEO
+101	Ethel Williams	CFO
+102	Margaret Delmonte	VP Sales
+103	Chad G. Turner	VP Marketing
+104	Sam Ritchey	VP Engineering
+105	Brad Smith	Director Tech Support
+106	George Douglas	Director IT
+107	Steven Chang	Director Software
+108	Susan McKee	Director HR
+109	Alex Popovsky	QA Director
+120	Suzanne Champine	Sr Program Manager
+121	Shirley Dehaven	HW Eng Manager
+200	Cesar Ramps	IT Helpdesk
+201	Juanita J. Palmer	Database Administrator	
+202	Peter Zao	Software Engineer
+203	Mark Ferguson	Software Engineer
+204	Peggy Yao	Accountant
+205	Mike Kabic	Web developer

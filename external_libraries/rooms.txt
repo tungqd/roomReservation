@@ -1,0 +1,5 @@
+001	Main Conference Room	1st floor	30	open
+002	HR Conference Room	3rd floor	5	open
+003	Operation Conference Room	2nd floor	10	open
+004	Sales Conference Room	1st floor	10	open
+005	Engineering Conference Room	2nd floor	20	open

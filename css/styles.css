@@ -1,0 +1,50 @@
+body, p, h1, h2, h3, h4, table, td, th, ul, ol, textarea, input {
+font-family: helvetica,verdana,arial,sans-serif;
+}
+body {
+  background: url(textture-noise.png);
+  overflow: hidden;
+  margin: 0;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+.wrapper
+{
+	width:100%;
+	margin: 1em;
+}
+#col 
+{
+	width:70%;
+	
+}
+table#userMeetings, table#roomSchedule, th, td
+{
+	margin:0;
+	border: solid black 1px;
+	text-align: center;
+}
+
+#bookAMeeting
+{
+	margin: 2px;
+	
+}
+.blabel{
+	width:10em;
+	text-align:right;
+	display:inline-block;
+	margin-right:1em;
+}
+.availRooms
+{
+	float:right;
+	text-align: left;
+	width: 40%;
+}
+.meetings
+{
+	float:left;
+	width:50%;
+}
