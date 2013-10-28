@@ -23,8 +23,9 @@ mysql_select_db($mysql_database, $bd) or die("Could not select database");
 */
 function getUserMeetings($uID) 
 {
-	$query = "SELECT title, starttime, endtime, date, attendees, status
-	FROM Booking WHERE ID in (SELECT distinct bookingID FROM UserMeeting WHERE uID = $uID);";
+	$query = "SELECT title, starttime, endtime, date, Room.name, attendees, Booking.status
+	FROM Booking, Room WHERE Booking.rID = Room.ID AND 
+	Booking.ID in (SELECT distinct bookingID FROM UserMeeting WHERE uID = $uID);";
 	
 	$result = mysql_query($query);
 	$num_rows = mysql_num_rows($result);
@@ -76,7 +77,7 @@ function availRooms() {
 }
 /**
 *
-* This function return a room schedule
+* This function returns a room schedule
 */
 function roomSchedule($rID) {
 	$query = "SELECT title, starttime, endtime, date, User.name, attendees
@@ -84,16 +85,16 @@ function roomSchedule($rID) {
 	and User.ID = Booking.uID AND Schedule.rID =$rID;";
 	$result = mysql_query($query);
 	$num_rows = mysql_num_rows($result);
-	$array = array();
 	for ($i=0; $i <$num_rows; $i++)
 	{
-	$rows = mysql_fetch_array($result, MYSQL_NUM);	
+	$rows = mysql_fetch_array($result, MYSQL_ASSOC);
 	$subarray = array();
 	foreach ($rows as $name => $value) {
 		$subarray[] = $value;
 	}
 	$array[] = $subarray;
-	return $array;
 	}
+	
+	return $array;
 }
 ?>

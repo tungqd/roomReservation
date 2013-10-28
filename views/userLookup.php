@@ -5,6 +5,7 @@
 	<th>Start Time</th>
 	<th>End Time</th>
 	<th>Date</th>
+	<th>Room</th>
 	<th>Number of attendees </th>
 	<th>Status</th>
 </tr>
@@ -19,13 +20,15 @@
 			$starttime = $meeting[1];
 			$endtime = $meeting[2];
 			$date = $meeting[3];
-			$attendees = $meeting[4];
-			$status = $meeting[5];
+			$room = $meeting[4];
+			$attendees = $meeting[5];
+			$status = $meeting[6];
 			?>
 			<td><?php echo $title;?></td>
 			<td><?php echo $starttime;?></td>
 			<td><?php echo $endtime;?></td>
 			<td><?php echo $date;?></td>
+			<td><?php echo $room;?></td>
 			<td><?php echo $attendees;?></td>
 			<td><?php echo $status;?></td>
 		</tr>
