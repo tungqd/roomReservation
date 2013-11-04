@@ -27,7 +27,7 @@
 	</div>
 	<br/><br/>
 	<div>
-	<form action="index.php?c=main" id="lookupMeetings" method="POST"> 
+	<form onSubmit="return validate();" action="index.php?c=main" id="lookupMeetings" method="POST"> 
 		<input type="hidden" name="view" value="userLookup">
 		<input type="hidden" name="ac" value="lookupMeetings">
 		User ID: <input type="text" name="uID">
@@ -52,3 +52,30 @@
 	</div>
 </div>
 </div>
+
+<script type="text/javascript">
+	function validate()
+	{
+		var x=document.getElementById("lookupMeetings");
+		var validate;
+		for (var i=0; i<x.length; i++)
+		{
+			var val = x.elements[i].value;
+			if (val == null || val ==='')
+			{
+				validate = false;
+				break;
+			}
+			validate = true;		
+		}
+		if (validate) 
+		{
+			return true;
+		}
+		else {
+			alert("Please fill out your userID");
+			return false;
+		}
+		 	
+	}
+</script>	

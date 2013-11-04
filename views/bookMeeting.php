@@ -34,7 +34,7 @@
 		}
 		if (validate) 
 		{
-			alert("You booking has been processed successfully.")
+			//alert("You booking has been processed successfully.")
 			return true;
 		}
 		else {

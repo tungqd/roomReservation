@@ -32,9 +32,7 @@ $controller();
 
 function main()
 {
-	//global $BASEURL;
-	//$base = echo BASEURL;
-	//require_once(defined($BASEURL)."controllers/main.php");
+	
 	require_once("./controllers/main.php");
 	mainController();
 	displayView($_SESSION['view']);
@@ -42,7 +40,7 @@ function main()
 
 function booking()
 {
-	//global $BASEURL;
+
 	require_once("./controllers/booking.php");
 	bookingController();
 	displayView($_SESSION['view']);
@@ -50,7 +48,7 @@ function booking()
 
 function admin()
 {
-	//global $BASEURL;
+	
 	require_once("./controllers/admin.php");
 	//blogController();
 	//displayView($_SESSION['view']);

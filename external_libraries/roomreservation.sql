@@ -33,6 +33,7 @@ attendees INT,
 status VARCHAR(30),
 updatedAt DATE,
 PRIMARY KEY(ID),
+UNIQUE KEY(starttime, endtime, date, rID),
 FOREIGN KEY (rID) REFERENCES Room(ID),
 FOREIGN KEY (uID) REFERENCES User(ID)
 ON DELETE SET NULL
@@ -59,6 +60,60 @@ FOREIGN KEY(bookingID) REFERENCES Booking(ID)
 ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS Archive;
+CREATE TABLE Archive
+(ID INT not null,
+title VARCHAR(30),
+starttime TIME,
+endtime TIME,
+date DATE,
+rID INT,
+uID INT,
+attendees INT,
+status VARCHAR(30),
+PRIMARY KEY(ID)
+);
+
+
 LOAD DATA LOCAL INFILE '/Applications/XAMPP/xamppfiles/htdocs/roomReservation/external_libraries/users.txt' INTO TABLE User;
 LOAD DATA LOCAL INFILE '/Applications/XAMPP/xamppfiles/htdocs/roomReservation/external_libraries/rooms.txt' INTO TABLE Room;
 
+DROP TRIGGER IF EXISTS addBooking;
+delimiter //
+CREATE TRIGGER addBooking AFTER INSERT ON Booking
+  FOR EACH ROW
+  BEGIN
+	IF New.status = "confirmed" THEN INSERT INTO Schedule(rID,bookingID) VALUES (New.rID, New.ID);
+	END IF;
+    INSERT INTO UserMeeting(uID, bookingID) VALUES (New.uID, New.ID);
+  END;
+//
+delimiter ;
+
+DROP TRIGGER IF EXISTS cancelMeeting;
+delimiter //
+CREATE TRIGGER cancelMeeting AFTER DELETE ON Booking
+  FOR EACH ROW
+  BEGIN
+	IF Old.status = "confirmed" THEN DELETE FROM Schedule WHERE rID = OLD.rID and bookingID = Old.ID;
+	END IF;
+    	DELETE FROM UserMeeting WHERE uID = Old.uID and bookingID = Old.ID;
+  END;
+//
+delimiter ;
+
+DROP PROCEDURE IF EXISTS Backup;
+delimiter //
+CREATE PROCEDURE Backup(IN cutoffDATE DATE)
+BEGIN
+	INSERT INTO Archive(ID, title, starttime, endtime, date, rID, uID, attendees, status)
+	(SELECT ID, title, starttime, endtime, date, rID, uID ,attendees, status
+	FROM Booking WHERE updatedAt <= cutoffDate);
+END;
+// delimiter ;
+
+DROP VIEW IF EXISTS BookingUsers;
+CREATE VIEW BookingUsers as
+SELECT Booking.ID, title, starttime, endtime, date, rID, User.name, attendees, status 
+FROM User, Booking
+WHERE User.ID = Booking.uID;

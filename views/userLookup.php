@@ -1,4 +1,8 @@
 <h2><a href=index.php>Kingkong Conference Room Reservation System</a> - Lookup My Meetings</h2>
+<?php 
+    if (count($data) == 0) echo "You don't have any bookings yet.";
+    else {
+?>
 <table id="userMeetings">
 <tr>
 	<th>Title</th>
@@ -11,6 +15,7 @@
 </tr>
 
 <?php
+    
 	for ($i=0; $i < count($data); $i++) {
 ?>
 		<tr>
@@ -33,6 +38,7 @@
 			<td><?php echo $status;?></td>
 		</tr>
 	<?php
+	}   
 	}
 ?>
 	

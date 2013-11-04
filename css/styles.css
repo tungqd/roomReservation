@@ -39,9 +39,11 @@ table#userMeetings, table#roomSchedule, th, td
 }
 .availRooms
 {
+    margin-right: 100px;
 	float:right;
 	text-align: left;
-	width: 40%;
+	width: 30%;
+	
 }
 .meetings
 {

@@ -49,8 +49,13 @@ function getUserMeetings($uID)
 function addAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees, $status, $updatedAt) {
 	$query ="INSERT INTO Booking(title, starttime, endtime, date, rID, uID, attendees, status, updatedAt) 
 		VALUES ('$title', '$starttime', '$endtime', '$date', '$rID', '$uID', '$attendees', '$status', '$updatedAt');";
-	mysql_query($query);
+	if (mysql_query($query)) {
+    	echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
 	}
+	else {
+        echo "<script language=javascript>alert('Room is busy. Please try again'); window.location = 'index.php'; </script>";
+	}
+}	
 
 /**
 *
