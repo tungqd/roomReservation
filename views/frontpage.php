@@ -36,7 +36,6 @@
 	</div>
 </div>
 <div class="availRooms">
-	
 	<h3>Current Available Room: </h3>
 	<?php 
 		for($i=0; $i < count($rooms); $i++) {
@@ -44,7 +43,8 @@
 	} ?>
 	<br/><br/>
 	<div>
-	<form action="index.php?c=booking" id="bookAMeeting" method="POST"> 
+	<form action="index.php" id="bookAMeeting" method="GET">
+	    <input type="hidden" name="c" value="booking"> 
 		<input type="hidden" name="ac" value="bookMeeting">
 		<input type="hidden" name="view" value="bookMeeting">
     	<input type="submit" value="Book a Meeting">

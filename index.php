@@ -64,9 +64,9 @@ function displayView($viewname)
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <title>Kingkong Room Reservation></title>
-<meta name="Authors" content="Tung Dang, Loc Dang, Khanh Nguyen" />
-<meta name="description" content="Simple blog using MVC pattern for HW2 CS174" />
-<meta name="keywords" content="HW2, blog, MVC" />
+<meta name="authors" content="Tung Dang" />
+<meta name="description" content="Simple Conference Room Reservation System" />
+<meta name="keywords" content="mySQL, PHP, Reservation" />
 <meta charset="utf-8" />
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW"/>
 <link rel="stylesheet" type="text/css" href="./css/styles.css" />

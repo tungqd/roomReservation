@@ -26,7 +26,7 @@
 			<td><?php echo $endtime;?></td>
 			<td><?php echo $date;?></td>
 			<td><?php echo $organizer;?></td>
-			<td><?php echo $attendees;?></td>
+			<td><?php echo $attendees;?></td>		
 		</tr>
 	<?php
 	}

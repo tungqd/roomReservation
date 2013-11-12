@@ -12,6 +12,7 @@
 	<th>Room</th>
 	<th>Number of attendees </th>
 	<th>Status</th>
+	<th>Action</th>
 </tr>
 
 <?php
@@ -28,6 +29,8 @@
 			$room = $meeting[4];
 			$attendees = $meeting[5];
 			$status = $meeting[6];
+			$bID = $meeting[7];
+			$uID = $meeting[8];
 			?>
 			<td><?php echo $title;?></td>
 			<td><?php echo $starttime;?></td>
@@ -36,6 +39,21 @@
 			<td><?php echo $room;?></td>
 			<td><?php echo $attendees;?></td>
 			<td><?php echo $status;?></td>
+			<td>
+    			<form action="index.php?c=booking" id="modifyBooking" method="POST">
+                    <input type="hidden" name="ac" value="modifyBooking"/>
+                    <input type="hidden" name="view" value="modifyBooking"/>
+                    <input type="hidden" name="title" value=<?php echo $title;?> />
+                    <input type="hidden" name="starttime" value=<?php echo $starttime;?> />
+                    <input type="hidden" name="endtime" value=<?php echo $endtime;?> />
+                    <input type="hidden" name="date" value=<?php echo $date;?> />
+                    <input type="hidden" name="room" value=<?php echo $room;?> />
+                    <input type="hidden" name="attendees" value=<?php echo $attendees;?> />
+                    <input type="hidden" name="bID" value=<?php echo $bID;?> />
+                    <input type="hidden" name="uID" value=<?php echo $uID;?> />
+                    <input type="submit" value="Modify"/>
+                </form>
+			</td>
 		</tr>
 	<?php
 	}   

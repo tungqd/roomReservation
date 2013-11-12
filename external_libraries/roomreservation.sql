@@ -112,8 +112,20 @@ BEGIN
 END;
 // delimiter ;
 
+DROP PROCEDURE IF EXISTS checkSchedule;
+delimiter //
+CREATE PROCEDURE checkSchedule(IN startt TIME, IN endt TIME, IN mdate DATE, IN room INT)
+BEGIN
+	SELECT count(*) AS overlap FROM Schedule JOIN Booking ON (Schedule.bookingID = Booking.ID) WHERE
+	date = $mdate and Booking.rID = Schedule.rID and Schedule.rID = room
+	and (($startt between starttime and endtime) or ($endt between starttime and endtime)
+	or ($startt < starttime and $endt > endtime));
+END;
+// delimiter ;
+
 DROP VIEW IF EXISTS BookingUsers;
 CREATE VIEW BookingUsers as
 SELECT Booking.ID, title, starttime, endtime, date, rID, User.name, attendees, status 
 FROM User, Booking
 WHERE User.ID = Booking.uID;
+

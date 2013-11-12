@@ -23,7 +23,7 @@ mysql_select_db($mysql_database, $bd) or die("Could not select database");
 */
 function getUserMeetings($uID) 
 {
-	$query = "SELECT title, starttime, endtime, date, Room.name, attendees, Booking.status
+	$query = "SELECT title, starttime, endtime, date, Room.name, attendees, Booking.status, Booking.ID, Booking.uID
 	FROM Booking, Room WHERE Booking.rID = Room.ID AND 
 	Booking.ID in (SELECT distinct bookingID FROM UserMeeting WHERE uID = $uID);";
 	
@@ -50,10 +50,9 @@ function addAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees
 	$query ="INSERT INTO Booking(title, starttime, endtime, date, rID, uID, attendees, status, updatedAt) 
 		VALUES ('$title', '$starttime', '$endtime', '$date', '$rID', '$uID', '$attendees', '$status', '$updatedAt');";
 	if (mysql_query($query)) {
-    	echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
-	}
-	else {
-        echo "<script language=javascript>alert('Room is busy. Please try again'); window.location = 'index.php'; </script>";
+            echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
+    } else {
+        echo "<script language=javascript>alert('Room is busy. Please try again.'); window.location = 'index.php?c=booking&ac=bookMeeting&view=bookMeeting'; </script>";
 	}
 }	
 
@@ -101,5 +100,48 @@ function roomSchedule($rID) {
 	}
 	
 	return $array;
+}
+/**
+*
+* This function checks if there is an overlapped confirmed meeting
+* Return 0 if there is no overlapped meeting
+*/
+function checkOverlap($startt,$endt,$mdate,$rID) {
+    $query ="SELECT count(*) AS Overlap FROM Schedule JOIN Booking ON (Schedule.bookingID = Booking.ID) WHERE
+	date = $mdate and Booking.rID = Schedule.rID and Schedule.rID = $rID
+	and (($startt between starttime and endtime) or ($endt between starttime and endtime)
+	or ($startt < starttime and $endt > endtime));";
+    $result = mysql_query($query);
+    $overlap = mysql_result($result,0);
+    return $overlap["Overlap"];
+
+
+}
+/**
+*
+* Modify a booking
+*/
+function modifyBooking($bID, $title, $rID, $starttime, $endtime, $date, $attendees) {
+    $query="UPDATE RoomReservation.Booking SET title = '$title', starttime = '$starttime', endtime = '$endtime', date = '$date', 
+            rID = '$rID', attendees = '$attendees', updatedAt = CURDATE() WHERE ID = '$bID';";
+    if (mysql_query($query)) {
+    	 echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
+    } else {
+        echo "<script language=javascript>alert('Please try again.'); window.location = 'index.php'; </script>";
+	}
+}
+/**
+*
+* This function cancels a booking
+*/
+function cancelBooking($uID, $bID) {
+    $query ="DELETE FROM Booking WHERE ID IN
+	(SELECT bookingID FROM UserMeeting WHERE uID=$uID AND ID=$bID);";
+	if (mysql_query($query)) {
+    	return 1;
+	}
+	else {
+    	return 0;
+	}
 }
 ?>

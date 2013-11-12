@@ -3,7 +3,7 @@
 		<input type="hidden" name="ac" value="bookAMeeting"><br/>
 		<label class="blabel">User ID: </label><input type="text" name="uID"><br/>
 		<label class="blabel">Title: </label><input type="text" name="title"><br/>
-		<label class="blabel">Room: </label><select name="room">
+		<label class="blabel">Room: </label><select name="rID">
 				<option value="001">Main Conference Room</option>
 				<option value="002">HR Conference Room</option>
 				<option value="003">Operation Conference Room</option>
@@ -32,6 +32,7 @@
 			}
 			validate = true;		
 		}
+		
 		if (validate) 
 		{
 			//alert("You booking has been processed successfully.")
