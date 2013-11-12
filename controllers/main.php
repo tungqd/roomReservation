@@ -16,15 +16,15 @@ require("./models/model.php");
 function mainController()
 {
 	global $data, $rooms, $schedules;
-	if ($_POST["ac"] == "lookupMeetings") {
+	if (isset($_POST["ac"]) &&  $_POST["ac"] == "lookupMeetings") {
 		$data = lookupMeetings($_POST["uID"]);
 		$_SESSION['view'] = 'userLookup';	
 
 	}
-	else if($_POST["ac"] == "bookMeeting"){
+	else if(isset($_POST["ac"]) &&  $_POST["ac"] == "bookMeeting"){
 		$_SESSION['view'] = 'bookMeeting';	
 	}
-	else if ($_POST["ac"] == "lookupARoom") {
+	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "lookupARoom") {
 		$schedules = lookupRoom($_POST["room"]);
 		$_SESSION['view'] = 'lookupRoom';
 	}

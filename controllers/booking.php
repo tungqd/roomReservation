@@ -16,10 +16,10 @@ function bookingController()
 {
 	global $rooms;
 	global $booking;
-	if($_GET["ac"] == "bookMeeting"){
+	if(isset($_GET["ac"]) &&  $_GET["ac"] == "bookMeeting"){
 		$_SESSION['view'] = 'bookMeeting';	
 	}
-	else if ($_POST["ac"] == "bookAMeeting") {
+	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "bookAMeeting") {
 	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
         if ($overlap == 0) {
             echo ($overlap);
@@ -36,14 +36,14 @@ function bookingController()
             $_SESSION['view'] = 'bookMeeting';
         }    
 	}
-	else if($_POST["ac"] == "modifyBooking") {
+	else if(isset($_POST["ac"]) &&  $_POST["ac"] == "modifyBooking") {
 	    $_SESSION['view'] = $_POST['view'];
     	$rID = checkrID($_POST["room"]);
     	$starttime = convertTime($_POST["starttime"]);
         $endtime = convertTime($_POST["endtime"]);
     	$booking =  array($_POST["title"],$rID,$starttime,$endtime,$_POST["date"],$_POST["attendees"],$_POST["bID"], $_POST["uID"]);      
 	}
-	else if ($_POST["ac"] == "modifyAMeeting") {
+	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "modifyAMeeting") {
 	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
         if ($overlap == 0) {
             $starttime = $_POST["starttime"]."00";

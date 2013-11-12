@@ -29,6 +29,7 @@ function getUserMeetings($uID)
 	
 	$result = mysql_query($query);
 	$num_rows = mysql_num_rows($result);
+	$array = array();
 	for ($i=0; $i <$num_rows; $i++)
 	{
 	$rows = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -89,6 +90,7 @@ function roomSchedule($rID) {
 	and User.ID = Booking.uID AND Schedule.rID =$rID;";
 	$result = mysql_query($query);
 	$num_rows = mysql_num_rows($result);
+	$array = array();
 	for ($i=0; $i <$num_rows; $i++)
 	{
 	$rows = mysql_fetch_array($result, MYSQL_ASSOC);
