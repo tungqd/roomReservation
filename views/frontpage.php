@@ -35,7 +35,18 @@
 	</form>
 	</div>
 </div>
+</div>
+<div id="loginButton">
+        <form action="index.php" method="GET">
+            <input type="hidden" name="c" value="login">
+            <input type="hidden" name="view" value="loginscreen">
+            <input type="hidden" name="ac" value="login">
+            <input type="submit" value="Administrator Login">
+        </form>
+</div>
+
 <div class="availRooms">
+    
 	<h3>Current Available Room: </h3>
 	<?php 
 		for($i=0; $i < count($rooms); $i++) {
@@ -51,7 +62,7 @@
 	</form>
 	</div>
 </div>
-</div>
+
 
 <script type="text/javascript">
 	function validate()

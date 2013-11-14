@@ -12,7 +12,7 @@ session_start();
 
 //require_once('./config/config.php');
 // there are 3 controllers
-$controllers_available= array('main','booking','admin');
+$controllers_available= array('main','booking','login','admin');
 
 //deciding the controller to be run
 if(isset($_GET['c']) && in_array($_GET['c'],$controllers_available)){
@@ -46,12 +46,20 @@ function booking()
 	displayView($_SESSION['view']);
 }
 
+function login()
+{
+	
+	require_once("./controllers/login.php");
+	loginController();
+	displayView($_SESSION['view']);
+}
+
 function admin()
 {
 	
 	require_once("./controllers/admin.php");
-	//blogController();
-	//displayView($_SESSION['view']);
+	adminController();
+	displayView($_SESSION['view']);
 }
 
 //displayView renders and displays specific view
