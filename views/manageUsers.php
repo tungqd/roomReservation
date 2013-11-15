@@ -19,30 +19,19 @@
         </form>
 </div>
 <div id="wrapper">
-    <h3>Manage Bookings</h3>
     <div>
         <form action="index.php" id="lookupUserMeetings" method="GET">
             <input type="hidden" name="c" value="admin"> 
             <input type="hidden" name="view" value="adminLookup">
             <input type="hidden" name="ac" value="lookupUserMeetings">
-            <input type="submit" value="Lookup User Bookings">
+            <input type="submit" value="Lookup User Meetings">
         </form>
     </div>
-    <br/>
-    <div>
-        <form action="index.php" id="approveBooking" method="GET">
-            <input type="hidden" name="c" value="admin"> 
-            <input type="hidden" name="view" value="approveBooking">
-            <input type="hidden" name="ac" value="approveBooking">
-            <input type="submit" value="Confirm Tentative Bookings">
-        </form>
-    </div>
-    <br/>
-    <h3>Manage Users</h3>
+    <br/><br/>
     <div>
         <form action="index.php" id="userManagement" method="GET">
             <input type="hidden" name="c" value="admin"> 
-            <input type="hidden" name="view" value="manageUsers">
+            <input type="hidden" name="view" value="userManagement">
             <input type="hidden" name="ac" value="manageUsers">
             <input type="submit" value="Manage Users">
         </form>

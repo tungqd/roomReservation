@@ -94,9 +94,9 @@ CREATE TRIGGER addBooking AFTER INSERT ON Booking
 //
 delimiter ;
 
-DROP TRIGGER IF EXISTS cancelMeeting;
+DROP TRIGGER IF EXISTS cancelBooking;
 delimiter //
-CREATE TRIGGER cancelMeeting AFTER DELETE ON Booking
+CREATE TRIGGER cancelBooking AFTER DELETE ON Booking
   FOR EACH ROW
   BEGIN
 	IF Old.status = "confirmed" THEN DELETE FROM Schedule WHERE rID = OLD.rID and bookingID = Old.ID;
@@ -106,16 +106,27 @@ CREATE TRIGGER cancelMeeting AFTER DELETE ON Booking
 //
 delimiter ;
 
-DROP TRIGGER IF EXISTS updateMeeting;
+DROP TRIGGER IF EXISTS updateSchedule;
 delimiter //
-CREATE TRIGGER updateMeeting AFTER UPDATE ON Booking
+CREATE TRIGGER updateSchedule BEFORE UPDATE ON Booking
   FOR EACH ROW
   BEGIN
-	IF Old.status = "confirmed" THEN UPDATE Schedule SET rID = New.rID;
+	IF Old.status = "confirmed" THEN 
+		UPDATE Schedule SET rID = New.rID;
 	END IF;
   END;
 // delimiter ;
 
+DROP TRIGGER IF EXISTS approveBooking;
+delimiter //
+CREATE TRIGGER approveBooking AFTER UPDATE ON Booking
+  FOR EACH ROW
+  BEGIN
+	IF (Old.status = "tentative" AND New.status = "confirmed") THEN 
+		INSERT INTO Schedule(rID,bookingID) VALUES (New.rID, New.ID);
+	END IF;
+  END;
+// delimiter ;
 
 DROP PROCEDURE IF EXISTS Backup;
 delimiter //

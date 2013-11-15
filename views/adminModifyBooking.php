@@ -1,4 +1,4 @@
-<h1><a href=index.php>Kingkong Room Reservation</a> - Administrator Modify Booking </h1>
+<h1><a href=index.php?c=admin>Kingkong Room Reservation</a> - Administrator Modify Booking </h1>
 <?php global $adminBooking;?>
 <form onSubmit="return validate();" action="index.php?c=booking" id="adminModifyAMeeting" method="POST"> 
 		<input type="hidden" name="ac" value="adminModifyAMeeting">		

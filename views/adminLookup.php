@@ -1,4 +1,4 @@
-<h2><a href=index.php?c=admin>Kingkong Conference Room Reservation System</a> - Lookup My Meetings</h2>
+<h2><a href=index.php?c=admin>Kingkong Conference Room Reservation System</a> - Lookup User Meetings</h2>
 <?php 
     global $userData;
     if (count($userData) == 0) echo "You don't have any bookings yet.";
@@ -48,7 +48,7 @@
     			<form action="index.php?c=booking" id="modifyBooking" method="POST">
                     <input type="hidden" name="ac" value="adminModifyBooking"/>
                     <input type="hidden" name="view" value="adminModifyBooking"/>
-                    <input type="hidden" name="title" value=<?php echo $title;?> />
+                    <input type="hidden" name="title" value=<?php echo urlencode($title);?> />
                     <input type="hidden" name="starttime" value=<?php echo $starttime;?> />
                     <input type="hidden" name="endtime" value=<?php echo $endtime;?> />
                     <input type="hidden" name="date" value=<?php echo $date;?> />

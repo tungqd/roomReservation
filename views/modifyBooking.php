@@ -4,7 +4,7 @@
 		<input type="hidden" name="ac" value="modifyAMeeting">		
         <input type="hidden" name="bID" value="<?php echo $booking[6];?>"/><br/>
         <label class="blabel">User ID: </label><input type="text" name="uID" value=<?php echo $booking[7];?> readonly><br/>
-		<label class="blabel">Title: </label><input type="text" name="title" value=<?php echo $booking[0];?>><br/>
+		<label class="blabel">Title: </label><input type="text" name="title" value=<?php echo ($booking[0]);?>><br/>
 		<label class="blabel">Room: </label><select name="rID">
 				<option value="001" <?php if($booking[1] == '001'){echo("selected");}?> >Main Conference Room</option>
 				<option value="002" <?php if($booking[1] == '002'){echo("selected");}?> >HR Conference Room</option>

@@ -43,7 +43,7 @@
     			<form action="index.php?c=booking" id="modifyBooking" method="POST">
                     <input type="hidden" name="ac" value="modifyBooking"/>
                     <input type="hidden" name="view" value="modifyBooking"/>
-                    <input type="hidden" name="title" value=<?php echo $title;?> />
+                    <input type="hidden" name="title" value=<?php echo urlencode($title);?> />
                     <input type="hidden" name="starttime" value=<?php echo $starttime;?> />
                     <input type="hidden" name="endtime" value=<?php echo $endtime;?> />
                     <input type="hidden" name="date" value=<?php echo $date;?> />

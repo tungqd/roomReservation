@@ -9,12 +9,14 @@
 *
 */
 require_once "./models/authenticate.php";
+require_once "./models/model.php";
 /**
 *
 * Login controller
 */
 function loginController()
 {
+    global $rooms;
 	//Login form is submitted
 	if (isset($_POST["ac"]) && $_POST["ac"]=="log") {
      	if (verifyUser($_POST["userid"],$_POST["pw"])) {
@@ -35,7 +37,8 @@ function loginController()
     }
     else if (isset($_GET["ac"]) && $_GET["ac"] == "logout") {
 		destroySession();
-		$_SESSION["view"]=("frontpage");		
+		$_SESSION["view"]=("frontpage");
+		$rooms = availRooms();
     }
 }
 

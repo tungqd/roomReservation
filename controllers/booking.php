@@ -46,7 +46,8 @@ function bookingController()
     	$rID = checkrID($_POST["room"]);
     	$starttime = convertTime($_POST["starttime"]);
         $endtime = convertTime($_POST["endtime"]);
-    	$booking =  array($_POST["title"],$rID,$starttime,$endtime,$_POST["date"],$_POST["attendees"],$_POST["bID"], $_POST["uID"]);      
+        $title = $_POST["title"];
+    	$booking =  array($title,$rID,$starttime,$endtime,$_POST["date"],$_POST["attendees"],$_POST["bID"], $_POST["uID"]);      
 	}
 	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "modifyAMeeting") {
 	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
@@ -144,5 +145,4 @@ function convertTime($time) {
     $timeArr = explode(':', $time);
     return $timeArr[0].$timeArr[1];
 }
-
 ?>
