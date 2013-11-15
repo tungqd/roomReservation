@@ -106,6 +106,17 @@ CREATE TRIGGER cancelMeeting AFTER DELETE ON Booking
 //
 delimiter ;
 
+DROP TRIGGER IF EXISTS updateMeeting;
+delimiter //
+CREATE TRIGGER updateMeeting AFTER UPDATE ON Booking
+  FOR EACH ROW
+  BEGIN
+	IF Old.status = "confirmed" THEN UPDATE Schedule SET rID = New.rID;
+	END IF;
+  END;
+// delimiter ;
+
+
 DROP PROCEDURE IF EXISTS Backup;
 delimiter //
 CREATE PROCEDURE Backup(IN cutoffDATE DATE)

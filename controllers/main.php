@@ -13,6 +13,10 @@ $data;
 $rooms;
 $schedules;
 require("./models/model.php");
+/**
+*
+* Main Controller
+*/
 function mainController()
 {
 	global $data, $rooms, $schedules;
@@ -34,10 +38,18 @@ function mainController()
 	}
 }
 
+/**
+*
+* User lookup own meetings
+*/ 
 function lookupMeetings($uID) {
 	return getUserMeetings($uID);
 }
 
+/**
+*
+* User lookups room schedule
+*/
 function lookupRoom($rID) {
 	return roomSchedule($rID);
 }

@@ -9,6 +9,10 @@
 *
 */
 require_once "./models/authenticate.php";
+/**
+*
+* Login controller
+*/
 function loginController()
 {
 	//Login form is submitted

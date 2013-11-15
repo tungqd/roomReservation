@@ -29,6 +29,7 @@ destroys the session variable
 */
 function destroySession()
 {
+	$_SESSION['loggedIn'] = false;
 	session_destroy();
 }
 

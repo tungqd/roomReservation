@@ -7,8 +7,8 @@
 *
 */
 
-//require_once('./models/connection.php');
-
+require_once('./models/connection.php');
+/*
 $mysql_hostname = "localhost";
 $mysql_user = "root";
 $mysql_password = "";
@@ -16,10 +16,12 @@ $mysql_database = "RoomReservation";
 $prefix = "";
 $bd = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("Could not connect database");
 mysql_select_db($mysql_database, $bd) or die("Could not select database");
+*/
 
 /**
 *
 * This function gets current user meetings
+* @param $uID: user ID
 */
 function getUserMeetings($uID) 
 {
@@ -46,6 +48,7 @@ function getUserMeetings($uID)
 /**
 *
 * This function adds meeting info into Booking relation
+*
 */
 function addAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees, $status, $updatedAt) {
 	$query ="INSERT INTO Booking(title, starttime, endtime, date, rID, uID, attendees, status, updatedAt) 
@@ -127,7 +130,7 @@ function modifyBooking($bID, $title, $rID, $starttime, $endtime, $date, $attende
     $query="UPDATE RoomReservation.Booking SET title = '$title', starttime = '$starttime', endtime = '$endtime', date = '$date', 
             rID = '$rID', attendees = '$attendees', updatedAt = CURDATE() WHERE ID = '$bID';";
     if (mysql_query($query)) {
-    	 echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
+    	 echo "<script language=javascript>alert('Your booking has been processed successfully.');window.location = 'index.php';</script>";
     } else {
         echo "<script language=javascript>alert('Please try again.'); window.location = 'index.php'; </script>";
 	}
@@ -146,4 +149,44 @@ function cancelBooking($uID, $bID) {
     	return 0;
 	}
 }
+/**
+*
+* This function retrieve all user meetings for administrator
+* @return array containing all meetings information
+*/
+function getAllMeetings() {
+    $query = "SELECT title, starttime, endtime, date, Room.name, attendees, Booking.status, Booking.ID, Booking.uID
+	FROM Booking, Room WHERE Booking.rID = Room.ID AND 
+	Booking.ID in (SELECT distinct bookingID FROM UserMeeting)
+	ORDER BY Booking.ID;";
+	
+	$result = mysql_query($query);
+	$num_rows = mysql_num_rows($result);
+	$array = array();
+	for ($i=0; $i <$num_rows; $i++)
+	{
+	$rows = mysql_fetch_array($result, MYSQL_ASSOC);
+	$subarray = array();
+	foreach ($rows as $name => $value) {
+		$subarray[] = $value;
+	}
+	$array[] = $subarray;
+	}
+	
+	return $array;	
+}
+/**
+*
+* Modify a booking for administrator
+*/
+function adminModifyBooking($bID, $title, $rID, $starttime, $endtime, $date, $attendees, $status) {
+    $query="UPDATE RoomReservation.Booking SET title = '$title', starttime = '$starttime', endtime = '$endtime', date = '$date', 
+            rID = '$rID', attendees = '$attendees', status = '$status', updatedAt = CURDATE() WHERE ID = '$bID';";
+    if (mysql_query($query)) {
+    	 echo "<script language=javascript>alert('Booking has been modified successfully.');window.location = 'index.php?c=admin';</script>";
+    } else {
+        echo "<script language=javascript>alert('Please try again.'); window.location = 'index.php?c=admin'; </script>";
+	}
+}
+
 ?>

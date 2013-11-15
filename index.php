@@ -2,7 +2,7 @@
 /**
 * index.php
 *
-* This file acts as entry point and calls appropriate controllers.
+* This file acts call administrator controller
 *
 * @author   Tung Dang
 *

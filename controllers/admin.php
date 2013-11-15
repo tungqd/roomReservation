@@ -9,36 +9,37 @@
 *
 */
 
-$data;
+$userData;
 $rooms;
 $schedules;
 require("./models/model.php");
+/**
+*
+* adminController
+*/
 function adminController()
 {
-	global $data, $rooms, $schedules;
-	if (isset($_POST["ac"]) &&  $_POST["ac"] == "lookupUserMeetings") {
-		$data = lookupMeetings($_POST["uID"]);
-		$_SESSION['view'] = 'userLookup';	
+	global $userData, $rooms, $schedules;
+	if (isset($_GET["ac"]) &&  $_GET["ac"] == "lookupUserMeetings") {
+	    $userData =lookupUserMeetings();
+		$_SESSION['view'] = 'adminLookup';	
 
-	}
-	else if(isset($_POST["ac"]) &&  $_POST["ac"] == "bookMeeting"){
-		$_SESSION['view'] = 'bookMeeting';	
-	}
-	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "lookupARoom") {
-		$schedules = lookupRoom($_POST["room"]);
-		$_SESSION['view'] = 'lookupRoom';
 	}
 	else{
-		$_SESSION['view'] = 'frontpage';
-		$rooms = availRooms();
+	    if ($_SESSION['loggedIn']) {
+    	    $_SESSION['view'] = 'backend';    
+	    }
+		else {
+    		$_SESSION['view'] = 'frontpage';
+		}
 	}
 }
-
-function lookupMeetings($uID) {
-	return getUserMeetings($uID);
+/**
+*
+* Lookup all user meetings
+*/
+function lookupUserMeetings() {
+	return getAllMeetings();
 }
 
-function lookupRoom($rID) {
-	return roomSchedule($rID);
-}
 ?>

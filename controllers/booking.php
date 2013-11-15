@@ -12,10 +12,15 @@
 $booking;
 
 require("./models/model.php");
+/**
+*
+* bookingController
+*/
 function bookingController()
 {
 	global $rooms;
 	global $booking;
+	global $adminBooking;
 	if(isset($_GET["ac"]) &&  $_GET["ac"] == "bookMeeting"){
 		$_SESSION['view'] = 'bookMeeting';	
 	}
@@ -50,7 +55,12 @@ function bookingController()
             $endtime = $_POST["endtime"]."00";
             modifyBooking($_POST["bID"], $_POST["title"], $_POST["rID"], $starttime, $endtime, $_POST["date"], $_POST["attendees"]);
             $rooms = availRooms();
-            $_SESSION['view'] = 'frontpage';
+            if ($_SESSION['loggedIn']) {
+                $_SESSION['view'] = 'backend';
+            }
+            else {
+                $_SESSION['view'] = 'frontpage';
+            }
         }
         else {
             echo "<script language=javascript>alert('Room is busy. Please pick another room.');
@@ -58,11 +68,36 @@ function bookingController()
             $_SESSION['view'] = 'bookMeeting';
         }    
 	}
+	else if(isset($_POST["ac"]) &&  $_POST["ac"] == "adminModifyBooking") {
+	    $_SESSION['view'] = $_POST['view'];
+    	$rID = checkrID($_POST["room"]);
+    	$starttime = convertTime($_POST["starttime"]);
+        $endtime = convertTime($_POST["endtime"]);
+    	$adminBooking =  array($_POST["title"],$rID,$starttime,$endtime,$_POST["date"],$_POST["attendees"],$_POST["bID"], $_POST["uID"], $_POST["status"]);      
+	}
+	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "adminModifyAMeeting") {
+	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
+        if ($overlap == 0) {
+            $starttime = $_POST["starttime"]."00";
+            $endtime = $_POST["endtime"]."00";
+            adminModifyBooking($_POST["bID"], $_POST["title"], $_POST["rID"], $starttime, $endtime, $_POST["date"], $_POST["attendees"], $_POST["status"]);
+            $rooms = availRooms(); 
+            $_SESSION['view'] = 'backend';
+        }
+        else {
+            echo "<script language=javascript>alert('Room is busy. Please pick another room.');
+             window.location = 'index.php'; </script>";
+            $_SESSION['view'] = 'adminModifyBooking';
+        }    
+	}	
 	else{
 		$_SESSION['view'] = 'frontpage';
 	}
 }
-
+/**
+*
+* Book meeting
+*/
 function bookAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees, $updatedAt) {
 	if ($uID <=200) {
 		$status = "confirmed";
@@ -72,9 +107,17 @@ function bookAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendee
 	}
 	addAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees, $status, $updatedAt);
 }
+/**
+*
+* Check for overlapped booking
+*/
 function checkSchedule($startt,$endt,$mdate,$rID) {
     return checkOverlap($startt,$endt,$mdate,$rID);
 }
+/**
+*
+* convert Room name to rID
+*/
 function checkrID($room) {
     if ($room == "Main") {
         return 1;
@@ -93,6 +136,10 @@ function checkrID($room) {
     }
     else return 0;
 }
+/**
+* 
+* convert Time to string
+*/
 function convertTime($time) {
     $timeArr = explode(':', $time);
     return $timeArr[0].$timeArr[1];

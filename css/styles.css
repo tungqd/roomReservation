@@ -51,7 +51,7 @@ table#userMeetings, table#roomSchedule, th, td
 	width:50%;
 }
 
-#loginButton
+#loginButton, #logoutButton
 {
     margin-right: 100px;
 	float:right;
