@@ -21,6 +21,9 @@ function bookingController()
 	global $rooms;
 	global $booking;
 	global $adminBooking;
+	global $data;
+	global $closedRooms;
+	$closedRooms = getRoomStatus();
 	if(isset($_GET["ac"]) &&  $_GET["ac"] == "bookMeeting"){
 		$_SESSION['view'] = 'bookMeeting';	
 	}
@@ -90,6 +93,16 @@ function bookingController()
              window.location = 'index.php'; </script>";
             $_SESSION['view'] = 'adminModifyBooking';
         }    
+	}
+	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "deleteBooking") {
+	    if (deleteBooking($_POST['bID'])) {
+    	    echo "<script language=javascript>alert('Booking has been deleted.');</script>";
+	    }
+	    else {
+    	    echo "<script language=javascript>alert('Booking cannot be deleted.');</script>";
+	    }
+	    $_SESION['view'] = 'userLookup';
+	    $data = getUserMeetings($_POST["uID"]);    
 	}	
 	else{
 		$_SESSION['view'] = 'frontpage';

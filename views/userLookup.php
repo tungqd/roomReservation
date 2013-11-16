@@ -53,11 +53,34 @@
                     <input type="hidden" name="uID" value=<?php echo $uID;?> />
                     <input type="submit" value="Modify"/>
                 </form>
+                <form onSubmit="return confirmation();" action="index.php?c=booking" id="deleteBooking" method="POST">
+                    <input type="hidden" name="ac" value="deleteBooking"/>
+                    <input type="hidden" name="view" value="userLookup"/>
+                    <input type="hidden" name="uID" value=<?php echo $uID;?> />
+                    <input type="hidden" name="bID" value=<?php echo $bID;?> />     
+                    <input type="submit" value="Cancel"/>
+                </form>
 			</td>
 		</tr>
 	<?php
 	}   
 	}
 ?>
-	
 </table>
+
+<script type="text/javascript">
+	function confirmation()
+	{
+	    var x;
+        var r=confirm("Are you sure you want to cancel this booking?");
+        if (r==true)
+          {
+          x=true;
+          }
+        else
+          {
+          x=false;
+          }
+        return x;
+	}
+</script>

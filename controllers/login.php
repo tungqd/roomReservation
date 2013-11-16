@@ -24,7 +24,8 @@ function loginController()
 				unset($_SESSION["Usage"]);
 			}
      		
-     		setSessionVariable(); 
+     		setSessionVariable();
+     		$rooms = displayRooms();
           	$_SESSION["view"]=("backend");
      	} 
      	else { 

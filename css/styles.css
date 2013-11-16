@@ -11,15 +11,17 @@ body {
 
 .wrapper
 {
+    position: fixed;
 	width:100%;
 	margin: 1em;
+	overflow: auto;
 }
 #col 
 {
 	width:70%;
 	
 }
-table#userMeetings, table#roomSchedule, th, td
+table#userMeetings, table#roomSchedule, table#conferenceRooms, th, td
 {
 	margin:0;
 	border: solid black 1px;
@@ -54,6 +56,13 @@ table#userMeetings, table#roomSchedule, th, td
 #loginButton, #logoutButton
 {
     margin-right: 100px;
+	float:right;
+	text-align: left;
+	width: 30%;
+}
+#addUser
+{
+    margin-right: 200px;
 	float:right;
 	text-align: left;
 	width: 30%;

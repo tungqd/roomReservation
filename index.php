@@ -10,7 +10,7 @@
 */
 session_start();
 
-//require_once('./config/config.php');
+require_once('./config/config.php');
 // there are 3 controllers
 $controllers_available= array('main','booking','login','admin');
 
@@ -85,6 +85,7 @@ function displayView($viewname)
 		global $data;
 		global $rooms;
 		global $schedules;
+        global $closedRooms;
 		require_once("./views/{$viewname}.php"); 
 	?>
 

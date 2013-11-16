@@ -35,7 +35,6 @@
 	</form>
 	</div>
 </div>
-</div>
 <div id="loginButton">
         <form action="index.php" method="GET">
             <input type="hidden" name="c" value="login">
@@ -62,7 +61,7 @@
 	</form>
 	</div>
 </div>
-
+</div>
 
 <script type="text/javascript">
 	function validate()

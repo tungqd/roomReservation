@@ -20,6 +20,8 @@ require("./models/model.php");
 function mainController()
 {
 	global $data, $rooms, $schedules;
+	global $closedRooms;
+	$closedRooms = getRoomStatus();
 	if (isset($_POST["ac"]) &&  $_POST["ac"] == "lookupMeetings") {
 		$data = lookupMeetings($_POST["uID"]);
 		$_SESSION['view'] = 'userLookup';	

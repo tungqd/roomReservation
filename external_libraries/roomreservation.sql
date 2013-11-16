@@ -17,7 +17,8 @@ CREATE TABLE User
 (ID INT not null,
 name VARCHAR(30),
 position VARCHAR(30),
-PRIMARY KEY(ID, name)
+PRIMARY KEY(ID),
+UNIQUE KEY(name)
 );
 
 DROP TABLE IF EXISTS Booking;
@@ -44,12 +45,10 @@ ON UPDATE CASCADE
 
 DROP TABLE IF EXISTS Schedule;
 CREATE TABLE Schedule
-(rID INT not null,
-bookingID INT not null,
-PRIMARY KEY(rID, bookingID),
+(rID INT,
+bookingID INT,
+PRIMARY KEY(bookingID),
 FOREIGN KEY(rID) REFERENCES Room(ID)
-ON UPDATE CASCADE,
-FOREIGN KEY(bookingID) REFERENCES Booking(ID)
 ON UPDATE CASCADE
 );
 
@@ -59,8 +58,6 @@ CREATE TABLE UserMeeting
 bookingID INT not null,
 PRIMARY KEY(uID, bookingID),
 FOREIGN KEY(uID) REFERENCES User(ID)
-ON UPDATE CASCADE,
-FOREIGN KEY(bookingID) REFERENCES Booking(ID)
 ON UPDATE CASCADE
 );
 
@@ -111,8 +108,8 @@ delimiter //
 CREATE TRIGGER updateSchedule BEFORE UPDATE ON Booking
   FOR EACH ROW
   BEGIN
-	IF Old.status = "confirmed" THEN 
-		UPDATE Schedule SET rID = New.rID;
+	IF (Old.status = "confirmed") THEN 
+		UPDATE Schedule SET rID = New.rID WHERE bookingID = Old.ID;
 	END IF;
   END;
 // delimiter ;

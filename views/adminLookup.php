@@ -1,7 +1,7 @@
 <h2><a href=index.php?c=admin>Kingkong Conference Room Reservation System</a> - Lookup User Meetings</h2>
 <?php 
     global $userData;
-    if (count($userData) == 0) echo "You don't have any bookings yet.";
+    if (count($userData) == 0) echo "There is no booking!";
     else {
 ?>
 <table id="userMeetings">
@@ -59,6 +59,13 @@
                     <input type="hidden" name="status" value=<?php echo $status;?> />
                     <input type="submit" value="Modify"/>
                 </form>
+                <form onSubmit="return confirmation();" action="index.php?c=booking" id="deleteBooking" method="POST">
+                    <input type="hidden" name="ac" value="deleteBooking"/>
+                    <input type="hidden" name="view" value="userLookup"/>
+                    <input type="hidden" name="uID" value=<?php echo $uID;?> />
+                    <input type="hidden" name="bID" value=<?php echo $bID;?> />     
+                    <input type="submit" value="Cancel"/>
+                </form>
 			</td>
 		</tr>
 	<?php
@@ -67,3 +74,20 @@
 ?>
 	
 </table>
+
+<script type="text/javascript">
+	function confirmation()
+	{
+	    var x;
+        var r=confirm("Are you sure you want to cancel this booking?");
+        if (r==true)
+          {
+          x=true;
+          }
+        else
+          {
+          x=false;
+          }
+        return x;
+	}
+</script>

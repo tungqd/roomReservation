@@ -1,14 +1,24 @@
 <h1><a href=index.php>Kingkong Room Reservation</a> - Book A Room </h1>
+<?php 
+    global $closedRooms;
+?>
+
 <form onSubmit="return validate();" action="index.php?c=booking" id="bookAMeeting" method="POST"> 
 		<input type="hidden" name="ac" value="bookAMeeting"><br/>
 		<label class="blabel">User ID: </label><input type="text" name="uID"><br/>
 		<label class="blabel">Title: </label><input type="text" name="title"><br/>
 		<label class="blabel">Room: </label><select name="rID">
-				<option value="001">Main Conference Room</option>
+		    <?php if ($closedRooms[0] == "open") { ?>
+		 	<option value="001">Main Conference Room</option>
+		 	<?php } if ($closedRooms[1] == "open") { ?>
 				<option value="002">HR Conference Room</option>
+            <?php } if ($closedRooms[2] == "open") { ?>
 				<option value="003">Operation Conference Room</option>
+            <?php } if ($closedRooms[3] == "open") { ?>
 				<option value="004">Sales Conference Room</option>
+            <?php } if ($closedRooms[4] == "open") { ?>
 				<option value="005">Engineering Conference Room</option>
+            <?php } ?>    
 			</select><br/>
 		<label class="blabel">Start time: </label><input type="text" name="starttime" value="hhmm"><br/>
 		<label class="blabel">End time: </label><input type="text" name="endtime" value="hhmm"><br/>

@@ -1,4 +1,4 @@
-<h2><a href=index.php?c=admin>Kingkong Conference Room Reservation System</a> - Approve Tentative Booking</h2>
+<h2><a href=index.php?c=admin>Kingkong Conference Room Reservation System</a> - Confirm Tentative Booking</h2>
 <?php 
     global $tentativeBooking;
     if (count($tentativeBooking) == 0) echo "There is no tentative booking.";
@@ -48,7 +48,7 @@
     			<form action="index.php?c=admin" id="approveBooking" method="POST">
     			    <input type="hidden" name="ac" value="approveABooking"/>
     			    <input type="hidden" name="id" value="<?php echo $bID;?>"/>
-                    <input type="submit" value="Approve"/>
+                    <input type="submit" value="Confirm"/>
                 </form>
 			</td>
 		</tr>
