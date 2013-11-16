@@ -372,4 +372,35 @@ function archive($date) {
     	return false;
 	}
 }
+/**
+*
+* is number of attendees bigger than room capacity
+*/
+function checkCapacity($rID, $attendees) {
+    $query="SELECT count(*) AS Overload FROM Room WHERE capacity < $attendees AND ID = $rID;";
+    $result = mysql_query($query);
+    $overload = mysql_result($result,0);
+    return $overload["Overload"];
+}
+/**
+*
+* Retrieve room with bigger capacity
+*/
+function displayRoomCapacity() {
+    $query="SELECT name, capacity FROM Room ORDER BY ID;";
+    $result = mysql_query($query);
+	$num_rows = mysql_num_rows($result);
+	$array = array();
+	for ($i=0; $i <$num_rows; $i++)
+	{
+	$rows = mysql_fetch_array($result, MYSQL_ASSOC);
+	$subarray = array();
+	foreach ($rows as $name => $value) {
+		$subarray[] = $value;
+	}
+	$array[] = $subarray;
+	}
+	
+	return $array;
+}
 ?>

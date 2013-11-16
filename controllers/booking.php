@@ -10,7 +10,7 @@
 */
 
 $booking;
-
+$roomCapacity;
 require("./models/model.php");
 /**
 *
@@ -23,13 +23,16 @@ function bookingController()
 	global $adminBooking;
 	global $data;
 	global $closedRooms;
+	global $roomCapacity;
 	$closedRooms = getRoomStatus();
+	$roomCapacity = displayRoomCapacity();
 	if(isset($_GET["ac"]) &&  $_GET["ac"] == "bookMeeting"){
-		$_SESSION['view'] = 'bookMeeting';	
+		$_SESSION['view'] = 'bookMeeting';
 	}
 	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "bookAMeeting") {
+	    $overload = checkCapacity($_POST["rID"], $_POST["attendees"]);
 	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
-        if ($overlap == 0) {
+        if ($overlap == 0 && $overload == 0) {
             echo ($overlap);
 		    $updatedAt = date("Y-m-d");
             $starttime = $_POST["starttime"]."00";
@@ -37,6 +40,12 @@ function bookingController()
             bookAMeeting($_POST["title"],$starttime,$endtime,$_POST["date"],$_POST["rID"],$_POST["uID"],$_POST["attendees"], $updatedAt);
             $rooms = availRooms();
             $_SESSION['view'] = 'frontpage';
+        }
+        else if ($overload != 0) {
+            $_SESSION["overload"] = true;
+            echo "<script language=javascript>alert('Room is too small. Please pick another room.');
+            window.location = 'index.php?c=booking&ac=bookMeeting&view=bookMeeting'; </script>";
+            $_SESSION['view'] = 'bookMeeting';
         }
         else {
             echo "<script language=javascript>alert('Room is busy. Please pick another room.');
@@ -53,8 +62,9 @@ function bookingController()
     	$booking =  array($title,$rID,$starttime,$endtime,$_POST["date"],$_POST["attendees"],$_POST["bID"], $_POST["uID"]);      
 	}
 	else if (isset($_POST["ac"]) &&  $_POST["ac"] == "modifyAMeeting") {
+	    $overload = checkCapacity($_POST["rID"], $_POST["attendees"]);
 	    $overlap = checkSchedule($_POST["starttime"]."01", $_POST["endtime"]."01", $_POST["date"],$_POST["rID"]);
-        if ($overlap == 0) {
+        if ($overlap == 0 && $overload == 0) {
             $starttime = $_POST["starttime"]."00";
             $endtime = $_POST["endtime"]."00";
             modifyBooking($_POST["bID"], $_POST["title"], $_POST["rID"], $starttime, $endtime, $_POST["date"], $_POST["attendees"]);
@@ -65,6 +75,11 @@ function bookingController()
             else {
                 $_SESSION['view'] = 'frontpage';
             }
+        }
+        else if ($overload != 0) {
+            echo "<script language=javascript>alert('Room is too small. Please pick another room.');
+            window.location = 'index.php?c=booking&ac=bookMeeting&view=bookMeeting'; </script>";
+            $_SESSION['view'] = 'bookMeeting';
         }
         else {
             echo "<script language=javascript>alert('Room is busy. Please pick another room.');
@@ -101,10 +116,11 @@ function bookingController()
 	    else {
     	    echo "<script language=javascript>alert('Booking cannot be deleted.');</script>";
 	    }
-	    $_SESION['view'] = 'userLookup';
-	    $data = getUserMeetings($_POST["uID"]);    
+	    $_SESION['view'] = $_POST["view"];
+	    $data = getUserMeetings($_POST["uID"]);   
 	}	
 	else{
+        $_SESSION["overload"] = false;
 		$_SESSION['view'] = 'frontpage';
 	}
 }

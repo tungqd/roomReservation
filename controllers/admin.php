@@ -99,6 +99,19 @@ function adminController()
 	    }
     	$_SESSION['view'] = 'backend';
     }
+    else if (isset($_POST["ac"]) &&  $_POST["ac"] == "adminDeleteBooking") {
+	    if (deleteBooking($_POST['bID'])) {
+	        
+    	    echo "<script language=javascript>alert('Booking has been deleted.');
+    	    window.location = 'index.php?c=admin&view=adminLookup&ac=lookupUserMeetings'</script>";
+	    }
+	    else {
+    	    echo "<script language=javascript>alert('Booking cannot be deleted.');
+    	    window.location = 'index.php?c=admin&view=adminLookup&ac=lookupUserMeetings'</script>";
+	    }
+	    $userData =lookupUserMeetings();
+	    $_SESSION["view"] = "adminLookup";
+    }
 	else{
 	    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
     	    $_SESSION['view'] = 'backend';    

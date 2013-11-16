@@ -71,7 +71,7 @@ function displayView($viewname)
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-<title>Kingkong Room Reservation></title>
+<title>Kingkong Room Reservation</title>
 <meta name="authors" content="Tung Dang" />
 <meta name="description" content="Simple Conference Room Reservation System" />
 <meta name="keywords" content="mySQL, PHP, Reservation" />
@@ -86,6 +86,7 @@ function displayView($viewname)
 		global $rooms;
 		global $schedules;
         global $closedRooms;
+        global $biggerRooms;
 		require_once("./views/{$viewname}.php"); 
 	?>
 

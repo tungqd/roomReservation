@@ -59,12 +59,12 @@
                     <input type="hidden" name="status" value=<?php echo $status;?> />
                     <input type="submit" value="Modify"/>
                 </form>
-                <form onSubmit="return confirmation();" action="index.php?c=booking" id="deleteBooking" method="POST">
-                    <input type="hidden" name="ac" value="deleteBooking"/>
-                    <input type="hidden" name="view" value="userLookup"/>
+                <form onSubmit="return confirmation();" action="index.php?c=admin" id="deleteBooking" method="POST">
+                    <input type="hidden" name="ac" value="adminDeleteBooking"/>
+                    <input type="hidden" name="view" value="adminLookup"/>
                     <input type="hidden" name="uID" value=<?php echo $uID;?> />
                     <input type="hidden" name="bID" value=<?php echo $bID;?> />     
-                    <input type="submit" value="Cancel"/>
+                    <input type="submit" value="Delete"/>
                 </form>
 			</td>
 		</tr>
@@ -79,7 +79,7 @@
 	function confirmation()
 	{
 	    var x;
-        var r=confirm("Are you sure you want to cancel this booking?");
+        var r=confirm("Are you sure you want to delete this booking?");
         if (r==true)
           {
           x=true;

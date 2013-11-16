@@ -1,6 +1,34 @@
 <h1><a href=index.php>Kingkong Room Reservation</a> - Book A Room </h1>
 <?php 
     global $closedRooms;
+    global $roomCapacity;
+    if (isset($_SESSION["overload"]) && $_SESSION["overload"] == true) {
+?>
+    <div id="roomCapacity">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Capacity</th>
+        </tr>
+                <?php
+                	for ($i=0; $i < count($roomCapacity); $i++) {
+                ?>
+                		<tr>
+                		<?php
+                			$room = $roomCapacity[$i];
+                			$name = $room[0];
+                			$capacity = $room[1];
+                			?>
+                			<td><?php echo $name;?></td>
+                			<td><?php echo $capacity;?></td>
+                		</tr>
+                	<?php
+                	}
+                ?>
+    </table>
+    </div>
+<?php
+    }
 ?>
 
 <form onSubmit="return validate();" action="index.php?c=booking" id="bookAMeeting" method="POST"> 
@@ -59,6 +87,8 @@
 		var endtime = x.elements[4];
 		var date = x.elements[5];
 		var attendees = x.elements[6];
+		
+		getBiggerRoom($attendees)
 		 	
 	}
 </script>	

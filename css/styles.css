@@ -60,7 +60,7 @@ table#userMeetings, table#roomSchedule, table#conferenceRooms, th, td
 	text-align: left;
 	width: 30%;
 }
-#addUser
+#addUser, #roomCapacity
 {
     margin-right: 200px;
 	float:right;

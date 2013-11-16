@@ -36,6 +36,7 @@ function mainController()
 	}
 	else{
 		$_SESSION['view'] = 'frontpage';
+		$_SESSION["overload"] = false;
 		$rooms = availRooms();
 	}
 }
