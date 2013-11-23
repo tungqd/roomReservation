@@ -4,7 +4,7 @@
 *
 * main controller
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */

@@ -17,8 +17,7 @@ CREATE TABLE User
 (ID INT not null,
 name VARCHAR(30),
 position VARCHAR(30),
-PRIMARY KEY(ID),
-UNIQUE KEY(name)
+PRIMARY KEY(ID)
 );
 
 DROP TABLE IF EXISTS Booking;
@@ -114,9 +113,9 @@ CREATE TRIGGER updateSchedule BEFORE UPDATE ON Booking
   END;
 // delimiter ;
 
-DROP TRIGGER IF EXISTS approveBooking;
+DROP TRIGGER IF EXISTS confirmBooking;
 delimiter //
-CREATE TRIGGER approveBooking AFTER UPDATE ON Booking
+CREATE TRIGGER confirmBooking AFTER UPDATE ON Booking
   FOR EACH ROW
   BEGIN
 	IF (Old.status = "tentative" AND New.status = "confirmed") THEN 

@@ -4,7 +4,7 @@
 *
 * Authenticate is a model for controller login.php
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */

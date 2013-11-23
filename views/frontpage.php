@@ -4,7 +4,7 @@
 *
 * front page view
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */

@@ -4,7 +4,7 @@
 *
 * Controller for handling adminstrator login 
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */

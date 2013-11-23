@@ -2,21 +2,12 @@
 /**
 * model.php
 * 
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */
 
 require_once('./models/connection.php');
-/*
-$mysql_hostname = "localhost";
-$mysql_user = "root";
-$mysql_password = "";
-$mysql_database = "RoomReservation";
-$prefix = "";
-$bd = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or die("Could not connect database");
-mysql_select_db($mysql_database, $bd) or die("Could not select database");
-*/
 
 /**
 *
@@ -56,7 +47,7 @@ function addAMeeting($title, $starttime, $endtime, $date, $rID, $uID, $attendees
 	if (mysql_query($query)) {
             echo "<script language=javascript>alert('Your booking has been processed successfully.'); window.location = 'index.php'; </script>";
     } else {
-        echo "<script language=javascript>alert('Room is busy. Please try again.'); window.location = 'index.php?c=booking&ac=bookMeeting&view=bookMeeting'; </script>";
+        echo "<script language=javascript>alert('Constraint violation.Please try again.'); window.location = 'index.php?c=booking&ac=bookMeeting&view=bookMeeting'; </script>";
 	}
 }	
 
@@ -342,7 +333,7 @@ function getRoomStatus() {
 function pullStats($days) {
     $query="SELECT title, Room.name AS Room, starttime, endtime, date, User.name AS organizer,attendees, Booking.status
      FROM Booking JOIN User ON (Booking.uID = User.ID) JOIN Room 
-     WHERE Booking.rID = Room.ID AND date >= date_sub(curdate(), interval $days day) AND date<curdate();";
+     WHERE Booking.rID = Room.ID AND date >= date_sub(curdate(), interval $days day) AND date<=curdate();";
     $result = mysql_query($query);
 	$num_rows = mysql_num_rows($result);
 	$array = array();

@@ -4,7 +4,7 @@
 *
 * main controller
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */
@@ -36,7 +36,7 @@ function adminController()
 	}
 	else if (isset($_POST["ac"]) && $_POST["ac"] == "approveABooking") {
 	    if(approveBooking($_POST["id"])) {
-	        echo "<script language=javascript>alert('Booking has been approved.');</script>";
+	        echo "<script language=javascript>alert('Booking has been confirmed.');</script>";
 	    }
 	    else {
     	    echo "<script language=javascript>alert('Something went wrong!');</script>";

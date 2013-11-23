@@ -4,7 +4,7 @@
 *
 * booking controller
 *
-* @author   Tung Dang
+* @author   Kingkong
 *
 *
 */
